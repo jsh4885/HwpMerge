@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QApplication, QMainWindow
-from 한글병합모듈 import Ui_MainWindow
+from module import Ui_MainWindow
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
