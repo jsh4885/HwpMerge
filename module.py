@@ -11,7 +11,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 
 from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QListWidget,
     QListWidgetItem, QMainWindow, QMenuBar, QPushButton,
-    QSizePolicy, QStatusBar, QWidget, QFileDialog)
+    QSizePolicy, QStatusBar, QWidget, QFileDialog, QMessageBox)
 
 
 class Ui_MainWindow(object):
@@ -220,6 +220,10 @@ class Ui_MainWindow(object):
     def btn_merge(self):
         import os
         import win32com.client as win32
+
+        if not globals().get('file_pathZ'):
+            QMessageBox.warning(self, "경고", "기준파일을 선택하세요.")
+            return
 
         hwp = win32.gencache.EnsureDispatch("HWPFrame.HwpObject")
         hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
