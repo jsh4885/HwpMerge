@@ -119,19 +119,19 @@ class Ui_MainWindow(object):
         self.pushButton_6.setText(QCoreApplication.translate("MainWindow", u"\ubcd1\ud569\uc2dc\uc791", None))
     # retranslateUi
 
-
     def btn1_FileLoad(self):
         fname = QFileDialog.getOpenFileName(self, "파일 목록", 'D:/ubuntu/disks/',
                                             'Hwp File(*.hwp);; All File(*)')
         if fname[0]:
             import os
-            file_path = os.path.basename(fname[0])
+            file_path = fname[0]
             global file_pathZ
             file_pathZ = os.path.abspath(file_path)
-            self.lineEdit.setText(file_path)
+            file_dir = os.path.dirname(file_pathZ)
+            file_name = os.path.basename(file_pathZ)
+            self.lineEdit.setText(file_name)
         else:
             pass
-
 
     def btn2_FileLoad(self):
         global fname
