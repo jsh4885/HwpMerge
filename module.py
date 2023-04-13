@@ -217,7 +217,6 @@ class Ui_MainWindow(object):
         else :
             pass
 
-
     def btn_merge(self):
         import os
         import win32com.client as win32
@@ -231,6 +230,9 @@ class Ui_MainWindow(object):
         첨부파일리스트 = file_pathX
         print(첨부파일리스트)
 
+        # Get the list of selected files from the listWidget
+        selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
+
         def 첨부삽입(path):
             hwp.HAction.GetDefault("InsertFile", hwp.HParameterSet.HInsertFile.HSet)
             hwp.HParameterSet.HInsertFile.filename = path
@@ -243,11 +245,11 @@ class Ui_MainWindow(object):
 
         hwp.MovePos(3)
 
-        for i in 첨부파일리스트:
+        # Loop through the selected files and insert them into the document
+        for i in selected_files:
             첨부삽입(os.path.join(BASE_DIR, i))
             hwp.MovePos(3)
 
         hwp.Quit()
-
 
         # function
