@@ -2,7 +2,7 @@ import logging
 from PySide6.QtWidgets import QApplication, QMainWindow
 from module import Ui_MainWindow
 
-logging.basicConfig(filename='log.txt', level=logging.DEBUG)
+logging.basicConfig(filename='new_log.txt', level=logging.DEBUG)  # 변경된 부분
 logger = logging.getLogger(__name__)
 
 class MainWindow(QMainWindow, Ui_MainWindow):
