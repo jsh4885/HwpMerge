@@ -2,7 +2,7 @@ import logging
 from PySide6.QtWidgets import QApplication, QMainWindow
 from module import Ui_MainWindow
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(filename='log.txt', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -18,4 +18,3 @@ if __name__ == '__main__':
     window = MainWindow()
     window.show()
     app.exec_()
-
