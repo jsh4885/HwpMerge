@@ -190,6 +190,7 @@ class Ui_MainWindow(object):
         else:
             pass
 
+
     def btn_moveup(self):
         rowIndexA = self.listWidget.currentRow()
         if 0 < rowIndexA:
