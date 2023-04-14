@@ -190,12 +190,6 @@ class Ui_MainWindow(object):
         else:
             pass
 
-    def btn_remove(self):
-        rn = self.listWidget.currentRow()
-        self.listWidget.takeItem(rn)
-        global file_pathX
-        file_pathX = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
-
     def btn_moveup(self):
         rowIndexA = self.listWidget.currentRow()
         if 0 < rowIndexA:
@@ -216,6 +210,12 @@ class Ui_MainWindow(object):
             file_pathX[rowIndex], file_pathX[rowIndex +1] = file_pathX[rowIndex +1], file_pathX[rowIndex]
         else :
             pass
+
+    def btn_remove(self):
+        rn = self.listWidget.currentRow()
+        self.listWidget.takeItem(rn)
+        global file_pathX
+        file_pathX = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
 
     def btn_merge(self):
 
