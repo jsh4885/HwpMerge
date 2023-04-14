@@ -191,24 +191,20 @@ class Ui_MainWindow(object):
             pass
 
     def btn_moveup(self):
-        rowIndexA = self.listWidget.currentRow()
-        if 0 < rowIndexA:
-            currentItem = self.listWidget.takeItem(rowIndexA)
-            self.listWidget.insertItem(rowIndexA - 1, currentItem)
-            self.listWidget.setCurrentRow(rowIndexA - 1)
-            file_pathX[rowIndexA -1], file_pathX[rowIndexA] = file_pathX[rowIndexA], file_pathX[rowIndexA -1]
-        else :
-            pass
+        currentRow = self.listWidget.currentRow()
+        if currentRow > 0:
+            currentItem = self.listWidget.takeItem(currentRow)
+            self.listWidget.insertItem(currentRow - 1, currentItem)
+            self.listWidget.setCurrentRow(currentRow - 1)
+            file_pathX[currentRow - 1], file_pathX[currentRow] = file_pathX[currentRow], file_pathX[currentRow - 1]
 
     def btn_movedown(self):
-        rowIndex = self.listWidget.currentRow()
-        if rowIndex < len(file_pathX)-1 :
-            currentItem = self.listWidget.takeItem(rowIndex)
-            self.listWidget.insertItem(rowIndex + 1, currentItem)
-            self.listWidget.setCurrentRow(rowIndex + 1)
-            file_pathX[rowIndex], file_pathX[rowIndex +1] = file_pathX[rowIndex +1], file_pathX[rowIndex]
-        else :
-            pass
+        currentRow = self.listWidget.currentRow()
+        if currentRow < self.listWidget.count() - 1:
+            currentItem = self.listWidget.takeItem(currentRow)
+            self.listWidget.insertItem(currentRow + 1, currentItem)
+            self.listWidget.setCurrentRow(currentRow + 1)
+            file_pathX[currentRow], file_pathX[currentRow + 1] = file_pathX[currentRow + 1], file_pathX[currentRow]
 
     def btn_remove(self):
         rn = self.listWidget.currentRow()
