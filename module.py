@@ -190,11 +190,11 @@ class Ui_MainWindow(object):
         else:
             pass
 
-
     def btn_remove(self):
         rn = self.listWidget.currentRow()
         self.listWidget.takeItem(rn)
-
+        global file_pathX
+        file_pathX = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
 
     def btn_moveup(self):
         rowIndexA = self.listWidget.currentRow()
@@ -218,6 +218,11 @@ class Ui_MainWindow(object):
             pass
 
     def btn_merge(self):
+
+        if self.listWidget.count() == 0:
+            QMessageBox.warning(self, "경고", "병합할 파일이 선택되지 않았습니다.")
+            return
+
         import os
         import win32com.client as win32
 
@@ -230,9 +235,7 @@ class Ui_MainWindow(object):
         hwp.Open(file_pathZ)
 
         BASE_DIR = os.path.dirname(file_pathZ)
-        print(BASE_DIR)
-        첨부파일리스트 = file_pathX
-        print(첨부파일리스트)
+        selected_files = [os.path.basename(path) for path in file_pathX]
 
         # Get the list of selected files from the listWidget
         selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
