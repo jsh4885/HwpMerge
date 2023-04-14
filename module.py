@@ -190,7 +190,6 @@ class Ui_MainWindow(object):
         else:
             pass
 
-
     def btn_moveup(self):
         rowIndexA = self.listWidget.currentRow()
         if 0 < rowIndexA:
@@ -200,7 +199,6 @@ class Ui_MainWindow(object):
             file_pathX[rowIndexA -1], file_pathX[rowIndexA] = file_pathX[rowIndexA], file_pathX[rowIndexA -1]
         else :
             pass
-
 
     def btn_movedown(self):
         rowIndex = self.listWidget.currentRow()
