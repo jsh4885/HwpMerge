@@ -135,8 +135,7 @@ class Ui_MainWindow(object):
 
     def btn2_FileLoad(self):
         global fname
-        fname = QFileDialog.getOpenFileNames(self, "파일 목록", 'D:/ubuntu/disks/',
-                                            'Hwp File(*.hwp);; All File(*)')
+        fname = QFileDialog.getOpenFileNames(self, "파일 목록", 'D:/ubuntu/disks/', 'Hwp File(*.hwp);; All File(*)')
 
         if fname[0]:
             import os
@@ -152,7 +151,6 @@ class Ui_MainWindow(object):
                 return str_result
 
             file_pathA = convertStringA(fname[0], ", ")
-
             self.lineEdit_2.setText(file_pathA)
 
             def convertStringB(arr, sep):
@@ -165,27 +163,13 @@ class Ui_MainWindow(object):
 
                 return str_result
 
-            file_pathB = convertStringB(fname[0], " ")
+            file_pathB = convertStringB(fname[0], ",")
+            a = file_pathB.split(",")
+            for item in a:
+                self.listWidget.addItem(item)
 
-            a= file_pathB.split()
-            i = 0
-            while i < len(a):
-                self.listWidget.addItem(a[i])
-                i += 1
-
-            def convertStringX(arr, sep):
-                str_result = ""
-                for index, s in enumerate(arr):
-                    if index + 1 == len(arr):
-                        str_result += str(s)
-                    else:
-                        str_result += str(s) + sep
-
-                return str_result
-
-            file_path = convertStringX(fname[0], ",")
             global file_pathX
-            file_pathX = file_path.split(',')
+            file_pathX = fname[0]
 
         else:
             pass
