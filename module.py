@@ -82,10 +82,11 @@ class Ui_MainWindow(object):
         self.pushButton_6.clicked.connect(self.btn_merge)
         self.pushButton_6.setGeometry(QRect(241, 112, 75, 24))
 
-
         self.listWidget = QListWidget(self.centralwidget)
         self.listWidget.setObjectName(u"listWidget")
         self.listWidget.setGeometry(QRect(19, 100, 211, 201))
+        self.listWidget.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.listWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
         MainWindow.setCentralWidget(self.centralwidget)
