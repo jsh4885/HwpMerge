@@ -145,9 +145,9 @@ class Ui_MainWindow(object):
                 str_result = ""
                 for index, s in enumerate(arr):
                     if index + 1 == len(arr):
-                        str_result += os.path.basename(str(s))
+                        str_result += os.path.abspath(str(s))
                     else:
-                        str_result += os.path.basename(str(s) + sep)
+                        str_result += os.path.abspath(str(s) + sep)
 
                 return str_result
 
@@ -158,9 +158,9 @@ class Ui_MainWindow(object):
                 str_result = ""
                 for index, s in enumerate(arr):
                     if index + 1 == len(arr):
-                        str_result += os.path.basename(str(s))
+                        str_result += os.path.abspath(str(s))
                     else:
-                        str_result += os.path.basename(str(s) + sep)
+                        str_result += os.path.abspath(str(s) + sep)
 
                 return str_result
 
@@ -168,9 +168,6 @@ class Ui_MainWindow(object):
             a = file_pathB.split(",")
             for item in a:
                 self.listWidget.addItem(item)
-
-            global file_pathX
-            file_pathX = fname[0]
 
         else:
             pass
@@ -206,16 +203,11 @@ class Ui_MainWindow(object):
         import os
         import win32com.client as win32
 
-        if not globals().get('file_pathZ'):
-            QMessageBox.warning(self, "경고", "기준파일을 선택하세요.")
-            return
-
         hwp = win32.gencache.EnsureDispatch("HWPFrame.HwpObject")
         hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
-        hwp.Open(file_pathZ)
 
-        BASE_DIR = os.path.dirname(file_pathZ)
-        selected_files = [os.path.basename(path) for path in file_pathX]
+        BASE_DIR = os.path.dirname(self.listWidget.item(0).text())
+
 
         # Get the list of selected files from the listWidget
         selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
@@ -233,8 +225,8 @@ class Ui_MainWindow(object):
         hwp.MovePos(3)
 
         # Loop through the selected files and insert them into the document
-        for i in selected_files:
-            첨부삽입(os.path.join(BASE_DIR, i))
+        for i in range(len(selected_files)):
+            첨부삽입(os.path.join(BASE_DIR, selected_files[i]))
             hwp.MovePos(3)
 
         hwp.Quit()
