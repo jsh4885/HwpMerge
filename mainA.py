@@ -1,4 +1,3 @@
-import logging
 from PySide6.QtWidgets import QApplication, QMainWindow, QListWidgetItem
 from moduleA import Ui_MainWindow
 from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, QListWidgetItem
@@ -17,6 +16,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # 드래그 앤 드롭
         self.listWidget.setDragDropMode(QListWidget.InternalMove)  # 수정된 부분
+        self.setWindowTitle("HanMerge_1.0")
 
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
