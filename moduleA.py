@@ -29,12 +29,12 @@ class Ui_MainWindow(object):
 
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
-        self.pushButton.clicked.connect(self.btn_FileLoad)
+        self.pushButton.clicked.connect(self.btn_remove)
 
 
         self.pushButton_2 = QPushButton(self.centralwidget)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.clicked.connect(self.btn_remove)
+        self.pushButton_2.clicked.connect(self.btn_FileLoad)
 
 
         self.pushButton_3 = QPushButton(self.centralwidget)
@@ -95,7 +95,7 @@ class Ui_MainWindow(object):
         if fname[0]:
             import os
 
-            def convertStringA(arr, sep):
+            def convertString(arr, sep):
                 str_result = ""
                 for index, s in enumerate(arr):
                     if index + 1 == len(arr):
@@ -105,20 +105,7 @@ class Ui_MainWindow(object):
 
                 return str_result
 
-            file_pathA = convertStringA(fname[0], ", ")
-            self.lineEdit_2.setText(file_pathA)
-
-            def convertStringB(arr, sep):
-                str_result = ""
-                for index, s in enumerate(arr):
-                    if index + 1 == len(arr):
-                        str_result += os.path.abspath(str(s))
-                    else:
-                        str_result += os.path.abspath(str(s) + sep)
-
-                return str_result
-
-            file_pathB = convertStringB(fname[0], ",")
+            file_pathB = convertString(fname[0], ",")
             a = file_pathB.split(",")
             for item in a:
                 self.listWidget.addItem(item)
