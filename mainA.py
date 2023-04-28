@@ -5,8 +5,6 @@ from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QListWidget, Q
 from PySide6.QtCore import Qt, QMimeData
 from PySide6.QtGui import QDrag
 
-logging.basicConfig(filename='new_log.txt', level=logging.DEBUG)  # 변경된 부분
-logger = logging.getLogger(__name__)
 
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, obj=None, **kwargs):
@@ -15,13 +13,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.setupUi(self)
             self.setAcceptDrops(True)
         except ValueError as e:
-            logger.warning("An error occurred while setting up UI: %s", e, exc_info=True)
+            pass
 
+# 드래그 앤 드롭
     def dragEnterEvent(self, event):
         if event.mimeData().hasUrls():
             event.accept()
         else:
             event.ignore()
+
 
     def dragMoveEvent(self, event):
         if event.mimeData().hasUrls():
@@ -29,6 +29,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             event.accept()
         else:
             event.ignore()
+
 
     def dropEvent(self, event):
         if event.mimeData().hasUrls():
@@ -40,6 +41,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         else:
             event.ignore()
 
+
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             item = self.listWidget.currentItem()  # 수정된 부분
@@ -49,6 +51,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 mime_data.setUrls([item.text()])
                 drag.setMimeData(mime_data)
                 drag.exec_(Qt.CopyAction)
+
 
 if __name__ == '__main__':
     app = QApplication()
