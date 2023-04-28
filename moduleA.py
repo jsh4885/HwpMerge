@@ -159,4 +159,3 @@ class Ui_MainWindow(object):
         hwp.Quit()
 
         # function
-
