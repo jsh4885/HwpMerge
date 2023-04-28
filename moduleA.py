@@ -25,8 +25,6 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName(u"centralwidget")
 
 
-
-
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.clicked.connect(self.btn_remove)
