@@ -46,7 +46,7 @@ class Ui_MainWindow(object):
         self.listWidget.setObjectName(u"listWidget")
         self.listWidget.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.listWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
-w
+
 
         self.gridLayout_5 = QGridLayout()
         self.gridLayout_5.setObjectName(u"gridLayout_5")
