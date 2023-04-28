@@ -50,7 +50,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 mime_data.setUrls([item.text()])
                 drag.setMimeData(mime_data)
                 drag.exec_(Qt.CopyAction)
-
+w
 
 if __name__ == '__main__':
     app = QApplication()
