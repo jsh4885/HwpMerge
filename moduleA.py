@@ -133,9 +133,6 @@ class Ui_MainWindow(object):
         hwp = win32.gencache.EnsureDispatch("HWPFrame.HwpObject")
         hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
 
-        BASE_DIR = os.path.dirname(self.listWidget.item(0).text())
-
-
         # Get the list of selected files from the listWidget
         selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
 
@@ -153,7 +150,7 @@ class Ui_MainWindow(object):
 
         # Loop through the selected files and insert them into the document
         for i in range(len(selected_files)):
-            첨부삽입(os.path.join(BASE_DIR, selected_files[i]))
+            첨부삽입(os.path.join(selected_files[i]))
             hwp.MovePos(3)
 
         hwp.Quit()
