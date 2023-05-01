@@ -111,17 +111,14 @@ class Ui_MainWindow(object):
         else:
             pass
 
-
     def btn_remove(self):
-
-        if self.listWidget.currentItem() is None:
+        selected_items = self.listWidget.selectedItems()
+        if len(selected_items) == 0:
             QMessageBox.warning(self, "경고", "삭제할 파일이 선택되지 않았습니다.")
             return
 
-        rn = self.listWidget.currentRow()
-        self.listWidget.takeItem(rn)
-        global file_pathX
-        file_pathX = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
+        for item in selected_items:
+            self.listWidget.takeItem(self.listWidget.row(item))
 
 
     def btn_merge(self):
