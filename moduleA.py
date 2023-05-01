@@ -113,6 +113,11 @@ class Ui_MainWindow(object):
 
 
     def btn_remove(self):
+
+        if self.listWidget.currentItem() is None:
+            QMessageBox.warning(self, "경고", "삭제할 파일이 선택되지 않았습니다.")
+            return
+
         rn = self.listWidget.currentRow()
         self.listWidget.takeItem(rn)
         global file_pathX
