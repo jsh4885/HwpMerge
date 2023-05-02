@@ -123,18 +123,23 @@ class Ui_MainWindow(object):
 
     def btn_merge(self):
 
+        # Get the list of selected files from the listWidget
+        selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
+
         if self.listWidget.count() == 0:
             QMessageBox.warning(self, "경고", "병합할 파일이 선택되지 않았습니다.")
             return
+
+        for file in selected_files:
+            if not file.endswith(".hwp"):
+                QMessageBox.warning(self, "경고", "한글 파일 이외의 문서가 포함되었습니다.")
+                return
 
         import os
         import win32com.client as win32
 
         hwp = win32.gencache.EnsureDispatch("HWPFrame.HwpObject")
         hwp.RegisterModule("FilePathCheckDLL", "SecurityModule")
-
-        # Get the list of selected files from the listWidget
-        selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
 
         def 첨부삽입(path):
             hwp.HAction.GetDefault("InsertFile", hwp.HParameterSet.HInsertFile.HSet)
