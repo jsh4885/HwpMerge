@@ -162,6 +162,10 @@ class Ui_MainWindow(object):
         hwp.HAction.Run("MoveTopLevelBegin")
         hwp.HAction.Run("DeleteBack")
 
-        hwp.Quit()
+        # Save the document
+        hwp.HAction.Run("FileSave")
+
+
+        hwp.Quit(2)
 
         # function
