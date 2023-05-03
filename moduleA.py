@@ -14,6 +14,8 @@ from PySide6.QtWidgets import (QApplication, QLabel, QLineEdit, QListWidget,
     QSizePolicy, QStatusBar, QWidget, QFileDialog, QMessageBox, QGridLayout)
 
 
+
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -120,9 +122,7 @@ class Ui_MainWindow(object):
         for item in selected_items:
             self.listWidget.takeItem(self.listWidget.row(item))
 
-
     def btn_merge(self):
-
         # Get the list of selected files from the listWidget
         selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
 
@@ -157,6 +157,10 @@ class Ui_MainWindow(object):
         for i in range(len(selected_files)):
             첨부삽입(os.path.join(selected_files[i]))
             hwp.MovePos(3)
+
+        # Move cursor to the first page of the document
+        hwp.HAction.Run("MoveTopLevelBegin")
+        hwp.HAction.Run("DeleteBack")
 
         hwp.Quit()
 
