@@ -123,10 +123,13 @@ class Ui_MainWindow(object):
             self.listWidget.takeItem(self.listWidget.row(item))
 
     def btn_merge(self):
-        # Get the list of selected files from the listWidget
-        selected_files = [str(self.listWidget.item(i).text()) for i in range(self.listWidget.count())]
+        selected_files = []
+        for i in range(self.listWidget.count()):
+            item = self.listWidget.item(i)
+            path = item.data(Qt.UserRole)  # 파일 경로를 가져옵니다.
+            selected_files.append(path)
 
-        if self.listWidget.count() == 0:
+        if len(selected_files) == 0:
             QMessageBox.warning(self, "경고", "병합할 파일이 선택되지 않았습니다.")
             return
 
@@ -153,19 +156,14 @@ class Ui_MainWindow(object):
 
         hwp.MovePos(3)
 
-        # Loop through the selected files and insert them into the document
-        for i in range(len(selected_files)):
-            첨부삽입(os.path.join(selected_files[i]))
+        for path in selected_files:
+            첨부삽입(path)
             hwp.MovePos(3)
 
-        # Move cursor to the first page of the document
         hwp.HAction.Run("MoveTopLevelBegin")
         hwp.HAction.Run("DeleteBack")
 
-        # Save the document
         hwp.HAction.Run("FileSave")
-
-
         hwp.Quit(2)
 
         # function
