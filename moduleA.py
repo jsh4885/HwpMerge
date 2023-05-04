@@ -87,29 +87,19 @@ class Ui_MainWindow(object):
         self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"\ubcd1\ud569\ud558\uae30", None))
     # retranslateUi
 
-
     def btn_FileLoad(self):
-        global fname
-        fname = QFileDialog.getOpenFileNames(self, "파일 목록", 'D:/ubuntu/disks/', 'Hwp File(*.hwp);; All File(*)')
+        import os
 
-        if fname[0]:
-            import os
+        global file_paths, directory
+        file_paths, _ = QFileDialog.getOpenFileNames(self, "파일 목록", 'D:/ubuntu/disks/', 'Hwp File(*.hwp);; All File(*)')
 
-            def convertString(arr, sep):
-                str_result = ""
-                for index, s in enumerate(arr):
-                    if index + 1 == len(arr):
-                        str_result += os.path.abspath(str(s))
-                    else:
-                        str_result += os.path.abspath(str(s) + sep)
-
-                return str_result
-
-            file_pathB = convertString(fname[0], ",")
-            a = file_pathB.split(",")
-            for item in a:
+        if file_paths:
+            directory = os.path.dirname(file_paths[0])
+            for file_path in file_paths:
+                filename = os.path.basename(file_path)
+                item = QListWidgetItem(filename)
+                item.setData(Qt.UserRole, file_path)  # 파일 경로를 저장합니다.
                 self.listWidget.addItem(item)
-
         else:
             pass
 
@@ -123,6 +113,10 @@ class Ui_MainWindow(object):
             self.listWidget.takeItem(self.listWidget.row(item))
 
     def btn_merge(self):
+
+        import os
+        from pathlib import Path
+
         selected_files = []
         for i in range(self.listWidget.count()):
             item = self.listWidget.item(i)
@@ -134,11 +128,11 @@ class Ui_MainWindow(object):
             return
 
         for file in selected_files:
-            if not file.endswith(".hwp"):
+            ext = Path(file).suffix
+            if ext.lower() != ".hwp":
                 QMessageBox.warning(self, "경고", "한글 파일 이외의 문서가 포함되었습니다.")
                 return
 
-        import os
         import win32com.client as win32
 
         hwp = win32.gencache.EnsureDispatch("HWPFrame.HwpObject")
