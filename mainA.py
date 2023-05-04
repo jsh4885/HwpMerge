@@ -32,32 +32,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             event.ignore()
 
     def dropEvent(self, event):
+
+        import os
+
         if event.mimeData().hasUrls():
             event.setDropAction(Qt.CopyAction)
             event.accept()
             urls = [url.toLocalFile() for url in event.mimeData().urls()]
             for url in urls:
-                self.listWidget.addItem(QListWidgetItem(url))
-        else:
-            event.ignore()
-
-    def mousePressEvent(self, event):
-        if event.button() == Qt.LeftButton:
-            item = self.listWidget.currentItem()
-            if item is not None:
-                drag = QDrag(self)
-                mime_data = QMimeData()
-                mime_data.setUrls([item.text()])
-                drag.setMimeData(mime_data)
-                drag.exec_(Qt.CopyAction)
-
-    def dropEvent(self, event):  # 수정된 부분
-        if event.mimeData().hasUrls():
-            event.setDropAction(Qt.CopyAction)
-            event.accept()
-            urls = [url.toLocalFile() for url in event.mimeData().urls()]
-            for url in urls:
-                item = QListWidgetItem(url)
+                path = os.path.abspath(url)
+                filename = os.path.basename(path)
+                item = QListWidgetItem(filename)
+                item.setData(Qt.UserRole, path)  # 파일 경로를 저장합니다.
                 self.listWidget.addItem(item)
 
         else:
@@ -69,6 +55,16 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 event.accept()
             else:
                 event.ignore()
+
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton:
+            item = self.listWidget.currentItem()
+            if item is not None:
+                drag = QDrag(self)
+                mime_data = QMimeData()
+                mime_data.setUrls([item.text()])
+                drag.setMimeData(mime_data)
+                drag.exec_(Qt.CopyAction)
 
 
 if __name__ == '__main__':
